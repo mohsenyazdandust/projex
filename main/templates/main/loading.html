@@ -1,33 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-        <p>User: {{ user.username }}</p>
-    {% else %}
-        <p>Hi New!</p>
-    {% endif %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Loading</title>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+            <p>User: {{ user.username }}</p>
+        {% else %}
+            <p>Hi New!</p>
+        {% endif %}
 
-    <hr>
-    <h2>GETs</h2>
-    <ol>
-        {% for key, value in request.GET.items %}
-            <li>{{ key }}: {{ value }}</li>
-        {% endfor %}
-    </ol>
+        <hr>
+        <h2>GETs</h2>
+        <ol>
+            {% for key, value in request.GET.items %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ol>
 
-    <hr>
-    <h2>POSTs</h2>
-    <ol>
-        {% for key, value in request.POST.items %}
-            <li>{{ key }}: {{ value }}</li>
-        {% endfor %}
-    </ol>
+        <hr>
+        <h2>POSTs</h2>
+        <ol>
+            {% for key, value in request.POST.items %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ol>
 
-    <a href="{% url 'main:page2' %}">Go There!</a>
-</body>
+        <hr>
+        <h2>JS</h2>
+        <ol id="js-data"></ol>
+
+        <a href="{% url 'main:page2' %}">Go There!</a>
+    </body>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        const data = window.Telegram.WebApp;
+        
+        const ol = document.getElementById("js-data");
+
+        for (const [key, value] of Object.entries(data)) {
+            const para = document.createElement("li");
+            const node = document.createTextNode(`${key}: ${value}`);
+            para.appendChild(node);
+
+            ol.appendChild(para);
+        }
+    </script>
 </html>
