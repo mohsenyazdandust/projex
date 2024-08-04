@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <p>User: {{ user.username }}</p>
+    {% else %}
+        <p>Hi New!</p>
+    {% endif %}
+
+    <hr>
+    <h2>GETs</h2>
+    <ol>
+        {% for key, value in request.GET.items %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ol>
+
+    <hr>
+    <h2>POSTs</h2>
+    <ol>
+        {% for key, value in request.POST.items %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ol>
+
+    <a href="{% url 'main:page2' %}">Go There!</a>
+</body>
+</html>
